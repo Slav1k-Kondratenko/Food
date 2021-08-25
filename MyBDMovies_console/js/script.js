@@ -5,7 +5,7 @@ const personalMovieDB = {
     movies: {},
     actors: {},
     genres: [],
-    privat: false,
+    privat: true,
     start: function () {
         personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели', '');
 
