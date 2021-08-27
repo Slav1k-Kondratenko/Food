@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addForm = document.querySelector('form.add'),
         addInput = addForm.querySelector('.adding__input'),
         checkbox = addForm.querySelector('[type="checkbox"]');
-        
+
 
     const deleteAdv = (arr) => {
         arr.forEach((item) => {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (newFilm.length > 21) {
                 newFilm = `${newFilm.substring(0, 22)}...`;
             }
-            
+
             if (favorite) {
                 console.log('Add my Favorite film');
             }
