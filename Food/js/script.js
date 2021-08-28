@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function getZero(num) {
-        if (num >= 0 && num <10) {
+        if (num >= 0 && num < 10) {
             return `0${num}`;
         } else {
             return num;
@@ -85,8 +85,12 @@ window.addEventListener('DOMContentLoaded', () => {
             minutes.innerHTML = getZero(t.minutes);
             seconds.innerHTML = getZero(t.seconds);
 
-            if (t.tola <= 0) {
+            if (t.total <= 0) {
                 clearInterval(timerInterval);
+                days.innerHTML = getZero('0');
+                hours.innerHTML = getZero('0');
+                minutes.innerHTML = getZero('0');
+                seconds.innerHTML = getZero('0');
             }
         }
     }
