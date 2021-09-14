@@ -219,7 +219,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     getResource('http://localhost:3000/menu')
         .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
+            data.forEach(({
+                img,
+                altimg,
+                title,
+                descr,
+                price
+            }) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
         });
@@ -241,17 +247,17 @@ window.addEventListener('DOMContentLoaded', () => {
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
             postData('http://localhost:3000/requests', json)
-            .then(data => {
-                console.log(data);
-                showThanksModal(message.succes);
-                statusMessage.remove();
-            })
-            .catch(() => {
-                showThanksModal(message.failure);
-            })
-            .finally(() => {
-                form.reset();
-            });
+                .then(data => {
+                    console.log(data);
+                    showThanksModal(message.succes);
+                    statusMessage.remove();
+                })
+                .catch(() => {
+                    showThanksModal(message.failure);
+                })
+                .finally(() => {
+                    form.reset();
+                });
         });
     }
 
@@ -278,7 +284,51 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    fetch('http://localhost:3000/menu')
-        .then(data => data.json())
-        .then(res => console.log(res));
+
+    // Slider
+    const sliders = document.querySelectorAll('.offer__slide'),
+        next = document.querySelector('.offer__slider-next'),
+        prev = document.querySelector('.offer__slider-prev'),
+        total = document.querySelector('#total'),
+        current = document.querySelector('#current');
+    let slideIndex = 1;
+
+    showSlide(slideIndex);
+
+    if (sliders.length < 10) {
+        total.textContent =`0${sliders.length}`;
+    } else {
+        total.textContent = sliders.length;
+    }
+
+    function showSlide(n) {
+        if (n > sliders.length) {
+            slideIndex = 1;
+        }
+
+        if (n < 1) {
+            slideIndex = sliders.length;
+        }
+
+        sliders.forEach(item => item.style.display = 'none');
+        sliders[slideIndex - 1].style.display = 'block';
+
+        if (current < 10) {
+            current.textContent =`0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
+    }
+
+    function changeSlideIndex(n) {
+        showSlide(slideIndex += n);
+    }
+
+    next.addEventListener('click', () => {
+        changeSlideIndex(+1);
+    });
+
+    prev.addEventListener('click', () => {
+        changeSlideIndex(-1);
+    });
 });
